@@ -11,7 +11,8 @@ class Register extends Component {
     super(props);
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      passwordverify: ""
     };
 
     handleChange = e => {
@@ -21,7 +22,24 @@ class Register extends Component {
     };
   }
 
-  handleSubmit = e => {};
+  handleSubmit = e => {
+    e.preventDefault();
+    const { username, password, passwordverify } = this.state;
+    const newUser = {
+      username: username, // (Unique) required
+      displayName: "", // optional
+      password: password, // required
+      email: "", // (Unique) optional
+      imgUrl: "" // optional
+    };
+
+    this.props.register(newUser);
+    this.setState({
+      username: "",
+      displayname: "",
+      password: ""
+    });
+  };
 
   render() {
     return (
