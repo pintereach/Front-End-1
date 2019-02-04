@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { register } from "../actions";
+import { register } from "../../actions";
 import RegisterForm from "./registerForm";
+
 function mapStateToProps(state) {
   return {};
 }
@@ -14,23 +15,24 @@ class Register extends Component {
       password: "",
       passwordverify: ""
     };
-
-    handleChange = e => {
-      this.setState({
-        [e.target.name]: e.target.value
-      });
-    };
   }
+
+  handleChange = e => {
+    e.persist();
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
 
   handleSubmit = e => {
     e.preventDefault();
     const { username, password, passwordverify } = this.state;
     const newUser = {
       username: username, // (Unique) required
-      displayName: "", // optional
+      display_name: "", // optional
       password: password, // required
       email: "", // (Unique) optional
-      imgUrl: "" // optional
+      img_url: "" // optional
     };
 
     this.props.register(newUser);
@@ -44,7 +46,7 @@ class Register extends Component {
   render() {
     return (
       <div>
-        <h1>Please register!!!</h1>
+        <h1>Register</h1>
         <RegisterForm
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
