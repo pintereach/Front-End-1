@@ -1,18 +1,19 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { login } from "../../actions";
-import LoginForm from "./loginForm";
+import { register } from "../../../actions";
+import RegisterForm from "./registerForm";
 
 function mapStateToProps(state) {
   return {};
 }
 
-class Login extends Component {
+class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      passwordverify: ""
     };
   }
 
@@ -25,15 +26,19 @@ class Login extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { username, password } = this.state;
-    const creds = {
+    const { username, password, passwordverify } = this.state;
+    const newUser = {
       username: username, // (Unique) required
-      password: password // required
+      display_name: "", // optional
+      password: password, // required
+      email: "", // (Unique) optional
+      img_url: "" // optional
     };
 
-    this.props.login(creds);
+    this.props.register(newUser);
     this.setState({
       username: "",
+      displayname: "",
       password: ""
     });
   };
@@ -41,8 +46,8 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <h1>Login</h1>
-        <LoginForm
+        <h1>Register</h1>
+        <RegisterForm
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
           username={this.state.username}
@@ -55,5 +60,5 @@ class Login extends Component {
 
 export default connect(
   mapStateToProps,
-  { login }
-)(Login);
+  { register }
+)(Register);

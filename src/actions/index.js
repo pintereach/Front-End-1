@@ -16,15 +16,16 @@ export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 
-export const fetch = () => dispatch => {
-  dispatch({ type: FETCH_START });
-  Axios.get("http://192.168.1.246:3333/")
-    .then(res => dispatch({ type: FETCH_SUCCESSFUL, payload: res.data }))
-    .catch(err => dispatch({ type: FETCH_FAIL, payload: err }));
-};
+// export const fetch = () => dispatch => {
+//   dispatch({ type: FETCH_START });
+//   Axios.get("http://192.168.1.246:3333/")
+//     .then(res => dispatch({ type: FETCH_SUCCESSFUL, payload: res.data }))
+//     .catch(err => dispatch({ type: FETCH_FAIL, payload: err }));
+// };
 
 export const register = newUser => dispatch => {
   dispatch({ type: REGISTER_REQUEST });
+  console.log(newUser);
   Axios.post(`https://pintereach.herokuapp.com/auth/register`, newUser)
     .then(res => dispatch({ type: REGISTER_SUCCESS, payload: res.data }))
     .catch(err => dispatch({ type: REGISTER_FAIL, payload: err }));

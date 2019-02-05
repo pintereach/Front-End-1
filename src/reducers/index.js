@@ -2,9 +2,9 @@ import {
   FETCH_ARTICALS_START,
   FETCH_ARTICALS_SUCCESSFUL,
   FETCH_ARTICALS_FAIL,
-  ADD_ARTICALS_START,
-  ADD_ARTICALS_SUCCESSFUL,
-  ADD_ARTICALS_FAIL,
+  // ADD_ARTICALS_START,
+  // ADD_ARTICALS_SUCCESSFUL,
+  // ADD_ARTICALS_FAIL,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
@@ -39,7 +39,7 @@ export default (state = initialstate, action) => {
     case REGISTER_SUCCESS:
       return { ...state, isRegistering: false };
     case REGISTER_FAIL:
-      return { ...state, isRegistering: false, error: error.payload };
+      return { ...state, isRegistering: false, error: action.payload };
 
     case FETCH_ARTICALS_START:
       return { ...state, fetchingSmurfs: true, error: null };
@@ -50,14 +50,14 @@ export default (state = initialstate, action) => {
     case FETCH_ARTICALS_FAIL:
       return { ...state, fetchingSmurfs: false, error: action.payload };
 
-    case ADD_ARTICALS_START:
-      return { ...state, addingSmurf: true, error: null };
+    // case ADD_ARTICALS_START:
+    //   return { ...state, addingSmurf: true, error: null };
 
-    case ADD_ARTICALS_SUCCESSFUL:
-      return { ...state, smurfs: action.payload, fetchingSmurfs: false };
+    // case ADD_ARTICALS_SUCCESSFUL:
+    //   return { ...state, smurfs: action.payload, fetchingSmurfs: false };
 
-    case ADD_ARTICALS_FAIL:
-      return { ...state, fetchingSmurfs: false, error: action.payload };
+    // case ADD_ARTICALS_FAIL:
+    //   return { ...state, fetchingSmurfs: false, error: action.payload };
     default:
       return state;
   }
