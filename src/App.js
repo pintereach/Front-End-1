@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Auth from "./components/Auth";
+import Welcome from "./components/Welcome";
 import { connect } from "react-redux";
 import "./App.css";
 
@@ -10,9 +11,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        {!this.props.loggedin ? <Auth /> : <h1> Welcome </h1>}
-      </div>
+      <div className="App">{!this.props.loggedin ? <Auth /> : <Welcome />}</div>
     );
   }
 }
