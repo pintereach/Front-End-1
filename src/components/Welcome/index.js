@@ -19,6 +19,11 @@ class Welcome extends Component {
   }
 
   componentDidMount() {
+    console.log(localStorage.getItem("token"));
+    const token = localStorage.getItem("token");
+    console.log("after set", localStorage.getItem("token"));
+    localStorage.setItem("token", token);
+
     const data = {
       id: localStorage.getItem("userid")
     };

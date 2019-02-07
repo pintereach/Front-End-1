@@ -8,8 +8,7 @@ function mapStateToProps(state) {
   return {
     articles: state.articles,
     id: state.userid,
-    token: state.token,
-    test: console.log('test',state)
+    token: state.token
   };
 }
 
@@ -24,13 +23,7 @@ class ArticleList extends Component {
     };
   }
 
-  componentDidMount(){
-    localStorage.setItem(
-      "token", this.props.token 
-    )
-
-    console.log('token',localStorage);
-  }
+  componentDidMount() {}
 
   addnewarticle = event => {
     event.preventDefault();
@@ -43,7 +36,7 @@ class ArticleList extends Component {
     };
 
     this.props.addnewarticle(this.props.token, newarticle);
-    
+
     this.setState({
       title: "",
       cover_page: "",
@@ -55,10 +48,10 @@ class ArticleList extends Component {
   handleInputChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
- 
+
   render() {
     return (
-      <div className='cardcontainer'>
+      <div className="cardcontainer">
         <h3>Your articles</h3>
         {this.props.articles
           ? this.props.articles.map(data => <Article {...data} />)

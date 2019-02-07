@@ -49,7 +49,6 @@ export default (state = initialstate, action) => {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        test: console.log(action),
         isLoggingIn: false,
         isLoggedIn: true,
         userid: action.payload.id

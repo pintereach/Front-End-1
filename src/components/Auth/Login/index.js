@@ -46,13 +46,16 @@ class Login extends Component {
     // console.log(this.props.token);
     return (
       <div>
-        <h1>Login</h1>
-        <LoginForm
-          handleSubmit={this.handleSubmit}
-          handleChange={this.handleChange}
-          username={this.state.username}
-          password={this.state.password}
-        />
+        {!localStorage.getItem("token") ? (
+          <LoginForm
+            handleChange={this.handleChange}
+            handleSubmit={this.handleSubmit}
+            username={this.state.username}
+            password={this.state.password}
+          />
+        ) : (
+          this.props.history.push("/welcome")
+        )}
       </div>
     );
   }

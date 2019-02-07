@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Auth from "./components/Auth";
 import Welcome from "./components/Welcome";
+import Login from "./components/Auth/Login";
 import { connect } from "react-redux";
 
 import "./App.css";
@@ -23,25 +24,12 @@ class App extends Component {
   // }
 
   render() {
-    console.log("token", localStorage.getItem("token"));
-
-    if (localStorage.getItem("token")) {
-      return (
-        <div className="App">
-          poiu
-          <Route exact path="/welcome" component={Welcome} />
-          {/* {!localStorage.getItem('token') ? <Auth /> : <Welcome />} */}
-          {/* <Route exact path='/' component={ Auth } /> */}
-        </div>
-      );
-    } else {
-      return (
-        <div className="App">
-          qwerty
-          <Route exact path="/login" component={Auth} />
-        </div>
-      );
-    }
+    return (
+      <div>
+        <Route exact path="/welcome" component={Welcome} />
+        <Route exact path="/" component={Login} />
+      </div>
+    );
   }
 }
 

@@ -4,10 +4,7 @@ import { getuserarticles } from "../../actions";
 import ArticleList from "./ArticleList";
 
 function mapStateToProps(state) {
-  return {
-    userid: state.userid,
-    token: state.token
-  };
+  return {};
 }
 
 class ArticleBoard extends Component {
