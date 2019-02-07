@@ -20,26 +20,22 @@ class Welcome extends Component {
 
   componentDidMount() {
     const data = {
-      id: this.props.userid
+      id: localStorage.getItem("userid")
     };
     const headersObj = {
-      headers: { authorization: this.props.token }
+      headers: { authorization: localStorage.getItem("token") }
     };
     this.props.getuserinfo(data, headersObj);
   }
-
-  getuserinfo = () => {
-    const headersObj = {
-      headers: { authorization: this.props.token }
-    };
-  };
 
   render() {
     return (
       <div>
         {this.props.userdata ? (
-          <ArticleBoard userdata={this.props.userdata} />
-        ) : null}
+          <ArticleBoard userdata={this.props.userdata} {...this.props} />
+        ) : (
+          <div>this is the welcome page</div>
+        )}
       </div>
     );
   }

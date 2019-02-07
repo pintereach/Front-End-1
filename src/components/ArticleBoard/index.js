@@ -13,17 +13,18 @@ function mapStateToProps(state) {
 class ArticleBoard extends Component {
   componentDidMount() {
     const headersObj = {
-      headers: { authorization: this.props.token }
+      headers: { authorization: localStorage.getItem("token") }
     };
-    this.props.getuserarticles(this.props.userid, headersObj);
-
+    this.props.getuserarticles(localStorage.getItem("userid"), headersObj);
   }
   render() {
     return (
-        <div>
+      <div>
+        <div className="headerbar">
           <h1>Welcome, {this.props.userdata.username}</h1>
-          <ArticleList  />
         </div>
+        <ArticleList />
+      </div>
     );
   }
 }

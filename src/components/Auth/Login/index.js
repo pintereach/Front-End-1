@@ -4,7 +4,10 @@ import { login } from "../../../actions";
 import LoginForm from "./loginForm";
 
 function mapStateToProps(state) {
-  return {};
+  console.log("state", state);
+  return {
+    token: state.token
+  };
 }
 
 class Login extends Component {
@@ -32,6 +35,7 @@ class Login extends Component {
     };
 
     this.props.login(creds);
+
     this.setState({
       username: "",
       password: ""
@@ -39,6 +43,7 @@ class Login extends Component {
   };
 
   render() {
+    // console.log(this.props.token);
     return (
       <div>
         <h1>Login</h1>

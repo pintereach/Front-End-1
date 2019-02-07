@@ -8,6 +8,9 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  POST_NEW_ARTICLE_REQUEST,
+  POST_NEW_ARTICLE_SUCCESS,
+  POST_NEW_ARTICLE_FAIL,
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -23,7 +26,7 @@ import {
 } from "../actions";
 
 const initialstate = {
-  articals: [],
+  articles: [],
   users: [],
   userdata: {},
   userid: null,
@@ -36,8 +39,7 @@ const initialstate = {
   addingArticals: false,
   updatingSmurf: false,
   deletingSmurf: false,
-  error: null,
-  token: localStorage.getItem("TOKEN")
+  error: null
 };
 
 export default (state = initialstate, action) => {
@@ -47,9 +49,9 @@ export default (state = initialstate, action) => {
     case LOGIN_SUCCESS:
       return {
         ...state,
+        test: console.log(action),
         isLoggingIn: false,
         isLoggedIn: true,
-        token: action.payload.token,
         userid: action.payload.id
       };
     case LOGIN_FAIL:
@@ -74,7 +76,11 @@ export default (state = initialstate, action) => {
     case FETCH_USER_ARTICLES_START:
       return { ...state, isFetchingArticals: true, error: null };
     case FETCH_USER_ARTICLES_SUCCESSFUL:
-      return { ...state, isFetchingArticals: false, articles: action.payload };
+      return {
+        ...state,
+        isFetchingArticals: false,
+        articles: action.payload.articles
+      };
     case FETCH_USER_ARTICLES_FAIL:
       return { ...state, isFetchingArticals: false, error: action.payload };
 

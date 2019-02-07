@@ -25,6 +25,10 @@ export const REGISTER_REQUEST = "REGISTER_REQUEST";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_FAIL = "REGISTER_FAIL";
 
+export const POST_NEW_ARTICLE_REQUEST = "POST_NEW_ARTICLE_REQUEST";
+export const POST_NEW_ARTICLE_SUCCESS = "POST_NEW_ARTICLE_SUCCESS";
+export const POST_NEW_ARTICLE_FAIL = "POST_NEW_ARTICLE_FAIL";
+
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
@@ -44,9 +48,14 @@ export const register = newUser => dispatch => {
 };
 
 export const login = creds => dispatch => {
+  console.log("foo");
   dispatch({ type: LOGIN_REQUEST });
   Axios.post(`https://pintereach.herokuapp.com/auth/login`, creds)
-    .then(res => dispatch({ type: LOGIN_SUCCESS, payload: res.data }))
+    .then(res => {
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("userid", res.data.id);
+      dispatch({ type: LOGIN_SUCCESS, payload: res.data });
+    })
     .catch(err => dispatch({ type: LOGIN_FAIL, payload: err }));
 };
 
@@ -60,16 +69,14 @@ export const getusers = auth => dispatch => {
 export const getuserarticles = (id, header) => dispatch => {
   dispatch({ type: FETCH_USER_ARTICLES_START });
   Axios.get(`https://pintereach.herokuapp.com/users/${id}/articles`, header)
-    .then(res =>
-      {
-        dispatch({ type: FETCH_USER_ARTICLES_SUCCESSFUL, payload: res.data });
-        console.log(res)
-      }
-    )
+    .then(res => {
+      dispatch({ type: FETCH_USER_ARTICLES_SUCCESSFUL, payload: res.data });
+    })
     .catch(err => dispatch({ type: FETCH_USER_ARTICLES_FAIL, payload: err }));
 };
 
 export const getuserinfo = (auth, header) => dispatch => {
+  console.log("header", header);
   dispatch({ type: FETCH_USER_ATTRIBUTES_START });
   Axios.get(`https://pintereach.herokuapp.com/users/${auth.id}`, header).then(
     res =>
@@ -78,4 +85,23 @@ export const getuserinfo = (auth, header) => dispatch => {
         payload: res.data
       })
   );
+};
+
+export const addnewarticle = (token, newpost) => dispatch => {
+  dispatch({ type: POST_NEW_ARTICLE_REQUEST });
+  Axios({
+    method: "post",
+    url: `https://pintereach.herokuapp.com/users/articles`,
+    headers: {
+      Authorization: token
+    },
+    data: newpost
+  })
+    .then(res =>
+      dispatch({ type: POST_NEW_ARTICLE_SUCCESS, payload: res.data })
+    )
+    .catch(err => {
+      dispatch({ type: POST_NEW_ARTICLE_FAIL, payload: err });
+      console.log(err.response);
+    });
 };
