@@ -24,9 +24,24 @@ class Auth extends Component {
   render() {
     return (
       <div>
-        <div onClick={this.toReg}>Register</div>
-        <div onClick={this.toLogin}>Login</div>
-        {this.state.register ? <Register /> : <Login />}
+        <div id="header">
+          <div>
+            <h1>Pintereach</h1>
+          </div>
+          <div>
+            <div className="button" onClick={this.toReg}>
+              Register
+            </div>
+            <div className="button" onClick={this.toLogin}>
+              Login
+            </div>
+          </div>
+        </div>
+        {this.state.register ? (
+          <Register toLogin={this.toLogin} />
+        ) : (
+          <Login {...this.props} />
+        )}
       </div>
     );
   }

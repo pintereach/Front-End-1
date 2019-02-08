@@ -9,7 +9,7 @@ function mapStateToProps(state) {
     articles: state.articles,
     id: state.userid,
     token: state.token,
-    test: console.log('test',state)
+    needupdate: state.needupdate
   };
 }
 
@@ -24,13 +24,7 @@ class ArticleList extends Component {
     };
   }
 
-  componentDidMount(){
-    localStorage.setItem(
-      "token", this.props.token 
-    )
-
-    console.log('token',localStorage);
-  }
+  componentDidMount() {}
 
   addnewarticle = event => {
     event.preventDefault();
@@ -42,8 +36,12 @@ class ArticleList extends Component {
       category_ids: article.category_ids
     };
 
-    this.props.addnewarticle(this.props.token, newarticle);
-    
+    this.props.addnewarticle(
+      localStorage.getItem("token"),
+      newarticle,
+      localStorage.getItem("userid")
+    );
+
     this.setState({
       title: "",
       cover_page: "",
@@ -55,18 +53,30 @@ class ArticleList extends Component {
   handleInputChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
- 
+
   render() {
     return (
-      <div className='cardcontainer'>
-        <h3>Your articles</h3>
-        {this.props.articles
-          ? this.props.articles.map(data => <Article {...data} />)
-          : null}
-        <AddArticleForm
-          handleInputChange={this.handleInputChange}
-          addnewarticle={this.addnewarticle}
-        />
+      <div className="inner">
+        <section>
+          {this.props.name === "" ? (
+            <h3>Your articles</h3>
+          ) : (
+            <h3>{this.props.name}'s articles</h3>
+          )}
+          <div className="posts">
+            {this.props.articles
+              ? this.props.articles.map(data => <Article {...data} />)
+              : null}
+          </div>
+        </section>
+        {this.props.name === "" ? (
+          <AddArticleForm
+            handleInputChange={this.handleInputChange}
+            addnewarticle={this.addnewarticle}
+          />
+        ) : (
+          <div onClick={this.props.tohome}>Back to home</div>
+        )}
       </div>
     );
   }

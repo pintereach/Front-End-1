@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Auth from "./components/Auth";
 import Welcome from "./components/Welcome";
+import Login from "./components/Auth/Login";
 import { connect } from "react-redux";
 
 import "./App.css";
@@ -12,44 +13,30 @@ class App extends Component {
   }
 
   // componentDidMount() {
-  //   localStorage.setItem("token", this.props.token);
+  //   localStorage.setItem("token", localStorage.getItem('token'));
 
   //   console.log("token", localStorage);
   // }
 
   // componentDidUpdate(prevProps) {
-  //   if (prevProps.token != this.props.token)
-  //     localStorage.setItem("token", this.props.token);
+  //   if (prevProps.token != localStorage.getItem('token'))
+  //     localStorage.setItem("token", localStorage.getItem('token'));
   // }
 
   render() {
-    console.log("token", localStorage.getItem("token"));
-
-    if (localStorage.getItem("token")) {
-      return (
-        <div className="App">
-          poiu
-          <Route exact path="/welcome" component={Welcome} />
-          {/* {!localStorage.getItem('token') ? <Auth /> : <Welcome />} */}
-          {/* <Route exact path='/' component={ Auth } /> */}
-        </div>
-      );
-    } else {
-      return (
-        <div className="App">
-          qwerty
-          <Route exact path="/login" component={Auth} />
-        </div>
-      );
-    }
+    return (
+      <div>
+        <Route exact path="/welcome" component={Welcome} />
+        <Route exact path="/" render={props => <Auth {...props} />} />
+      </div>
+    );
   }
 }
 
 function mapStateToProps(state) {
   return {
     token: state.token,
-    loggedin: state.isLoggedIn,
-    test: console.log(state)
+    loggedin: state.isLoggedIn
   };
 }
 

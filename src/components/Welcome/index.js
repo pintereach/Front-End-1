@@ -19,6 +19,10 @@ class Welcome extends Component {
   }
 
   componentDidMount() {
+    const token = localStorage.getItem("token");
+    console.log("after set", this.props);
+    localStorage.setItem("token", token);
+
     const data = {
       id: localStorage.getItem("userid")
     };
@@ -32,7 +36,9 @@ class Welcome extends Component {
     return (
       <div>
         {this.props.userdata ? (
-          <ArticleBoard userdata={this.props.userdata} {...this.props} />
+          <div id="main">
+            <ArticleBoard userdata={this.props.userdata} {...this.props} />
+          </div>
         ) : (
           <div>this is the welcome page</div>
         )}

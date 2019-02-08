@@ -39,17 +39,18 @@ const initialstate = {
   addingArticals: false,
   updatingSmurf: false,
   deletingSmurf: false,
+  needupdate: false,
   error: null
 };
 
 export default (state = initialstate, action) => {
+  console.log("state", state, "action", action);
   switch (action.type) {
     case LOGIN_REQUEST:
       return { ...state, isLoggingIn: true, error: null };
     case LOGIN_SUCCESS:
       return {
         ...state,
-        test: console.log(action),
         isLoggingIn: false,
         isLoggedIn: true,
         userid: action.payload.id
@@ -105,6 +106,10 @@ export default (state = initialstate, action) => {
       };
     case FETCH_USERS_FAIL:
       return { ...state, isFetchingUsers: false, error: action.payload };
+
+    case POST_NEW_ARTICLE_SUCCESS:
+      return { ...state, needupdate: true };
+
     // case ADD_ARTICALS_START:
     //   return { ...state, addingSmurf: true, error: null };
 
