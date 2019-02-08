@@ -4,7 +4,10 @@ import { login } from "../../../actions";
 import LoginForm from "./loginForm";
 
 function mapStateToProps(state) {
-  return {};
+  console.log("state", state);
+  return {
+    token: state.token
+  };
 }
 
 class Login extends Component {
@@ -32,6 +35,7 @@ class Login extends Component {
     };
 
     this.props.login(creds);
+
     this.setState({
       username: "",
       password: ""
@@ -39,15 +43,22 @@ class Login extends Component {
   };
 
   render() {
+    // console.log(localStorage.getItem('token'));
     return (
       <div>
-        <h1>Login</h1>
-        <LoginForm
-          handleSubmit={this.handleSubmit}
-          handleChange={this.handleChange}
-          username={this.state.username}
-          password={this.state.password}
-        />
+        {!localStorage.getItem("token") ? (
+          <div>
+            <h1>Login</h1>
+            <LoginForm
+              handleChange={this.handleChange}
+              handleSubmit={this.handleSubmit}
+              username={this.state.username}
+              password={this.state.password}
+            />
+          </div>
+        ) : (
+          this.props.history.push("/welcome")
+        )}
       </div>
     );
   }

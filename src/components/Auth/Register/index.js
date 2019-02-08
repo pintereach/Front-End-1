@@ -41,6 +41,7 @@ class Register extends Component {
       displayname: "",
       password: ""
     });
+    this.props.toLogin();
   };
 
   render() {
